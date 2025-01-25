@@ -1,21 +1,27 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import PrivateRoute from './routes/PrivateRoute'
+import PublicRoute from './routes/PublicRoute'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
+import HomePage from './pages/HomePage'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p className="text-2xl text-red-400">
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          <button onClick={() => setCount(count + 1)}>Click me</button>
-        </p>
-        <p>Count: {count}</p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Route>
+
+        {/* Private Routes */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
