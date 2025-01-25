@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/Auth.context'
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Link as MuiLink,
+  Alert,
+} from '@mui/material'
 
 const SignupPage: React.FC = () => {
   const { signUp } = useAuth()
@@ -24,46 +34,74 @@ const SignupPage: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-xl font-semibold text-gray-700 mb-6">Sign Up</h1>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          className="w-full border rounded-md p-2 mb-4"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border rounded-md p-2 mb-4"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border rounded-md p-2 mb-6"
-        />
-        <button
-          onClick={handleSignup}
-          disabled={loading}
-          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 disabled:opacity-50"
-        >
-          {loading ? 'Signing Up...' : 'Sign Up'}
-        </button>
-        <p className="mt-4 text-sm text-gray-600 text-center">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-500 hover:underline">
-            Log in here
-          </Link>
-        </p>
-      </div>
-    </div>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      bgcolor="#f5f5f5"
+    >
+      <Card sx={{ width: 400, padding: 3, boxShadow: 3, borderRadius: 2 }}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            gutterBottom
+            textAlign="center"
+          >
+            Sign Up
+          </Typography>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          <TextField
+            fullWidth
+            label="Full Name"
+            variant="outlined"
+            margin="normal"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            variant="outlined"
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            variant="outlined"
+            margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            onClick={handleSignup}
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
+          >
+            {loading ? 'Signing Up...' : 'Sign Up'}
+          </Button>
+          <Typography variant="body2" color="textSecondary" align="center">
+            Already have an account?{' '}
+            <MuiLink component={Link} to="/login" color="primary">
+              Log in here
+            </MuiLink>
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 

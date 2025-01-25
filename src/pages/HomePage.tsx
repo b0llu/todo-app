@@ -1,23 +1,46 @@
 import React from 'react'
 import { useAuth } from '../context/Auth.context'
+import { Box, Card, CardContent, Typography, Button } from '@mui/material'
 
 const HomePage: React.FC = () => {
   const { user, signOut } = useAuth()
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-700">
-          Welcome, {user?.email}!
-        </h1>
-        <button
-          onClick={() => signOut()}
-          className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      bgcolor="#f5f5f5"
+    >
+      <Card
+        sx={{
+          width: 400,
+          padding: 2,
+          boxShadow: 3,
+          borderRadius: 2,
+          textAlign: 'center',
+        }}
+      >
+        <CardContent>
+          <Typography variant="h5" fontWeight="bold" gutterBottom>
+            Welcome
+          </Typography>
+          <Typography variant="body1" color="textSecondary" mb={4}>
+            {user?.email || 'Guest'}
+          </Typography>
+          <Button
+            variant="contained"
+            color="error"
+            size="large"
+            fullWidth
+            onClick={() => signOut()}
+          >
+            Logout
+          </Button>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 

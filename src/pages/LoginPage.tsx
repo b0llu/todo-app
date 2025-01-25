@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/Auth.context'
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Link as MuiLink,
+  Alert,
+} from '@mui/material'
 
 const LoginPage: React.FC = () => {
   const { signIn } = useAuth()
@@ -23,39 +33,66 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-xl font-semibold text-gray-700 mb-6">Login</h1>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full border rounded-md p-2 mb-4"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full border rounded-md p-2 mb-6"
-        />
-        <button
-          onClick={handleLogin}
-          disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 disabled:opacity-50"
-        >
-          {loading ? 'Logging In...' : 'Login'}
-        </button>
-        <p className="mt-4 text-sm text-gray-600 text-center">
-          Don't have an account?{' '}
-          <Link to="/signup" className="text-blue-500 hover:underline">
-            Sign up here
-          </Link>
-        </p>
-      </div>
-    </div>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      bgcolor="#f5f5f5"
+    >
+      <Card sx={{ width: 400, padding: 3, boxShadow: 3, borderRadius: 2 }}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            gutterBottom
+            textAlign="center"
+          >
+            Login
+          </Typography>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            variant="outlined"
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            variant="outlined"
+            margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            onClick={handleLogin}
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
+          >
+            {loading ? 'Logging In...' : 'Login'}
+          </Button>
+          <Typography variant="body2" color="textSecondary" align="center">
+            Don't have an account?{' '}
+            <MuiLink component={Link} to="/signup" color="primary">
+              Sign up here
+            </MuiLink>
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 
