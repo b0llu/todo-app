@@ -46,6 +46,7 @@ const HomePage: React.FC = () => {
     let query = supabase
       .from('todo')
       .select('*')
+      .eq('user_id', user?.id)
       .order('created_at', { ascending: false })
 
     const now = new Date()
